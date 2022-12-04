@@ -24,18 +24,13 @@ export default function Login(props){
     }
 
     const submitForm = () => {
-        const formData = new FormData()
-        formData.append('email', email)
-        formData.append('password', password)
-        formData.append('token_name', 'Public Mobile Token')
-        formData.append('expired_at', '2030-12-31')
-
         axios
-        .post('https://laravel-books-db.herokuapp.com/api/login', formData)
+        .post('https://reqres.in/api/login', {
+            email: email,
+            password: password
+        })
         .then((res) => {
-            console.log(res)
-            if(res.status == 201){
-                localStorage.setItem('token', res.data.token.plain_text)
+            if(res.status == 200){
                 props.action(true)
             }
         })
